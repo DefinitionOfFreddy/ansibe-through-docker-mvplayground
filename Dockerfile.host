@@ -6,5 +6,7 @@ ADD ./ansible.cfg /etc/ansible/ansible.cfg
 COPY ./ssh-config-host/ /root/.ssh/
 COPY ./ssh-config-host/ /root/.ssh/
 
+RUN chmod 600 /root/.ssh/id_rsa
+
 USER root
 WORKDIR /ansible-config
