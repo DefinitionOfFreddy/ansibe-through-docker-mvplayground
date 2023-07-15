@@ -1,0 +1,10 @@
+FROM alpine/ansible:latest
+
+RUN mkdir -p /root/.ssh
+
+ADD ./ansible.cfg /etc/ansible/ansible.cfg
+COPY ./ssh-config-host/ /root/.ssh/
+COPY ./ssh-config-host/ /root/.ssh/
+
+USER root
+WORKDIR /ansible-config

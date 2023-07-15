@@ -1,0 +1,19 @@
+FROM alpine/ansible:latest
+
+
+RUN apk add openssh
+
+#Enable ssh login
+RUN apk add openrc && rc-update add sshd \
+    && sed -i '/^#Port 22/s/^#//' /etc/ssh/sshd_config \
+    && sed -i '/^#PermitRootLogin prohibit-password/s/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+
+RUN mkdir -p /root/.ssh
+COPY ssh-config-host/id_rsa.pub /tmp/
+RUN cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys
+RUN rm -f /tmp/id_rsa.pub
+
+
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

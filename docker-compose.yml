@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  ansible-host:
+    hostname: ansible-host
+    container_name: ansible-host
+    build:
+      context: .
+      dockerfile: Dockerfile.host
+    volumes:
+      - ./ansible-config:/ansible-config
+      - ./ansible-config:/home/ansible/ansible-config
+    command: tail -f /dev/null
+    expose:
+      - "22"
+  ansible-target1:
+    hostname: ansible-target1
+    container_name: ansible-target1
+    build:
+      context: .
+      dockerfile: Dockerfile.target
+    command: tail -f /dev/null
+    expose:
+      - "22"
+  ansible-target2:
+    hostname: ansible-target2
+    container_name: ansible-target2
+    build:
+      context: .
+      dockerfile: Dockerfile.target
+    command: tail -f /dev/null
+    expose:
+      - "22"
